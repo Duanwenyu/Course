@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.dao.ChoosemessMapper">
+  <resultMap id="BaseResultMap" type="com.course.entity.Choosemess">
+    <id column="STU_NO" jdbcType="VARCHAR" property="stuNo" />
+    <result column="COURSE_NO" jdbcType="VARCHAR" property="courseNo" />
+    <result column="COURSE_NAME" jdbcType="VARCHAR" property="courseName" />
+    <result column="TECH_NO" jdbcType="VARCHAR" property="techNo" />
+    <result column="TECH_NAME" jdbcType="VARCHAR" property="techName" />
+    <result column="COURSE_TIME" jdbcType="VARCHAR" property="courseTime" />
+    <result column="COURSE_SCORE" jdbcType="VARCHAR" property="courseScore" />
+    <result column="COURSE_DESCRIBE" jdbcType="VARCHAR" property="courseDescribe" />
+    <result column="COURSE_NUMBER" jdbcType="DECIMAL" property="courseNumber" />
+    <result column="COURSE_STATUS" jdbcType="VARCHAR" property="courseStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    STU_NO, COURSE_NO, COURSE_NAME, TECH_NO, TECH_NAME, COURSE_TIME, COURSE_SCORE, COURSE_DESCRIBE, 
+    COURSE_NUMBER, COURSE_STATUS
+  </sql>
+  <select id="selectChoosed" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CHOOSEMESS
+    where STU_NO = #{stuNo,jdbcType=VARCHAR}
+    and COURSE_STATUS = '1'
+  </select>
+  <select id="selectCourseNoByStuNo" parameterType="java.lang.String" resultType="integer">
+    select count(*) from CHOOSEMESS
+    where STU_NO = #{stuNo,jdbcType=VARCHAR}
+  </select>
+  <select id="selectStuNoForTeacher" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from CHOOSEMESS
+    where COURSE_NO = #{courseNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteChooseMess" parameterType="java.lang.String">
+    delete from CHOOSEMESS
+    where STU_NO = #{stuNo,jdbcType=VARCHAR}
+    and COURSE_NO = #{courseNo,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertChooseMess" parameterType="com.course.entity.Choosemess">
+    insert into CHOOSEMESS (STU_NO, COURSE_NO, COURSE_NAME, 
+      TECH_NO, TECH_NAME, COURSE_TIME, 
+      COURSE_SCORE, COURSE_DESCRIBE, COURSE_NUMBER, 
+      COURSE_STATUS)
+    values (#{stuNo,jdbcType=VARCHAR}, #{courseNo,jdbcType=VARCHAR}, #{courseName,jdbcType=VARCHAR}, 
+      #{techNo,jdbcType=VARCHAR}, #{techName,jdbcType=VARCHAR}, #{courseTime,jdbcType=VARCHAR}, 
+      #{courseScore,jdbcType=VARCHAR}, #{courseDescribe,jdbcType=VARCHAR}, #{courseNumber,jdbcType=DECIMAL}, 
+      #{courseStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.course.entity.Choosemess">
+    insert into CHOOSEMESS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stuNo != null">
+        STU_NO,
+      </if>
+      <if test="courseNo != null">
+        COURSE_NO,
+      </if>
+      <if test="courseName != null">
+        COURSE_NAME,
+      </if>
+      <if test="techNo != null">
+        TECH_NO,
+      </if>
+      <if test="techName != null">
+        TECH_NAME,
+      </if>
+      <if test="courseTime != null">
+        COURSE_TIME,
+      </if>
+      <if test="courseScore != null">
+        COURSE_SCORE,
+      </if>
+      <if test="courseDescribe != null">
+        COURSE_DESCRIBE,
+      </if>
+      <if test="courseNumber != null">
+        COURSE_NUMBER,
+      </if>
+      <if test="courseStatus != null">
+        COURSE_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stuNo != null">
+        #{stuNo,jdbcType=VARCHAR},
+      </if>
+      <if test="courseNo != null">
+        #{courseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName != null">
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="techNo != null">
+        #{techNo,jdbcType=VARCHAR},
+      </if>
+      <if test="techName != null">
+        #{techName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseTime != null">
+        #{courseTime,jdbcType=VARCHAR},
+      </if>
+      <if test="courseScore != null">
+        #{courseScore,jdbcType=VARCHAR},
+      </if>
+      <if test="courseDescribe != null">
+        #{courseDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="courseNumber != null">
+        #{courseNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="courseStatus != null">
+        #{courseStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.course.entity.Choosemess">
+    update CHOOSEMESS
+    <set>
+      <if test="courseNo != null">
+        COURSE_NO = #{courseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName != null">
+        COURSE_NAME = #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="techNo != null">
+        TECH_NO = #{techNo,jdbcType=VARCHAR},
+      </if>
+      <if test="techName != null">
+        TECH_NAME = #{techName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseTime != null">
+        COURSE_TIME = #{courseTime,jdbcType=VARCHAR},
+      </if>
+      <if test="courseScore != null">
+        COURSE_SCORE = #{courseScore,jdbcType=VARCHAR},
+      </if>
+      <if test="courseDescribe != null">
+        COURSE_DESCRIBE = #{courseDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="courseNumber != null">
+        COURSE_NUMBER = #{courseNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="courseStatus != null">
+        COURSE_STATUS = #{courseStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where STU_NO = #{stuNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.course.entity.Choosemess">
+    update CHOOSEMESS
+    set COURSE_NO = #{courseNo,jdbcType=VARCHAR},
+      COURSE_NAME = #{courseName,jdbcType=VARCHAR},
+      TECH_NO = #{techNo,jdbcType=VARCHAR},
+      TECH_NAME = #{techName,jdbcType=VARCHAR},
+      COURSE_TIME = #{courseTime,jdbcType=VARCHAR},
+      COURSE_SCORE = #{courseScore,jdbcType=VARCHAR},
+      COURSE_DESCRIBE = #{courseDescribe,jdbcType=VARCHAR},
+      COURSE_NUMBER = #{courseNumber,jdbcType=DECIMAL},
+      COURSE_STATUS = #{courseStatus,jdbcType=VARCHAR}
+    where STU_NO = #{stuNo,jdbcType=VARCHAR}
+  </update>
+</mapper>
