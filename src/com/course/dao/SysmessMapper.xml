@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.dao.SysmessMapper">
+  <resultMap id="BaseResultMap" type="com.course.entity.Sysmess">
+    <result column="SYS_START" jdbcType="DECIMAL" property="sysStart" />
+    <result column="SYS_CHOOSENUM" jdbcType="DECIMAL" property="sysChoosenum" />
+    <result column="SYS_TIME" jdbcType="VARCHAR" property="sysTime" />
+    <result column="SYS_F2" jdbcType="VARCHAR" property="sysF2" />
+    <result column="SYS_F3" jdbcType="VARCHAR" property="sysF3" />
+  </resultMap>
+  <select id="selectAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from SYSMESS 
+  </select>
+  <insert id="insert" parameterType="com.course.entity.Sysmess">
+    insert into SYSMESS (SYS_START, SYS_CHOOSENUM, SYS_TIME, 
+      SYS_F2, SYS_F3)
+    values (#{sysStart,jdbcType=DECIMAL}, #{sysChoosenum,jdbcType=DECIMAL}, #{sysTime,jdbcType=VARCHAR}, 
+      #{sysF2,jdbcType=VARCHAR}, #{sysF3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.course.entity.Sysmess">
+    insert into SYSMESS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sysStart != null">
+        SYS_START,
+      </if>
+      <if test="sysChoosenum != null">
+        SYS_CHOOSENUM,
+      </if>
+      <if test="sysTime != null">
+        SYS_TIME,
+      </if>
+      <if test="sysF2 != null">
+        SYS_F2,
+      </if>
+      <if test="sysF3 != null">
+        SYS_F3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sysStart != null">
+        #{sysStart,jdbcType=DECIMAL},
+      </if>
+      <if test="sysChoosenum != null">
+        #{sysChoosenum,jdbcType=DECIMAL},
+      </if>
+      <if test="sysTime != null">
+        #{sysTime,jdbcType=VARCHAR},
+      </if>
+      <if test="sysF2 != null">
+        #{sysF2,jdbcType=VARCHAR},
+      </if>
+      <if test="sysF3 != null">
+        #{sysF3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

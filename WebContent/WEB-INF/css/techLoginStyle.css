@@ -1,0 +1,167 @@
+a,address,b,big,blockquote,body,center,cite,code,dd,del,div,dl,dt,em,fieldset,font,form,h1,h2,h3,h4,h5,h6,html,i,iframe,img,ins,label,legend,li,ol,p,pre,small,span,strong,u,ul,var
+	{
+	margin: 0;
+	padding: 0
+}
+
+ul,li {
+	list-style: none;
+}
+
+a:hover {
+	color: red;
+	cursor: pointer;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+}
+
+#main {
+	width: 100%;
+	min-height: 100%;
+	background: url("../image/login-bg.jpg") no-repeat -50px 0px;
+}
+
+#head {
+	height: 100px;
+	padding-top: 40px;
+}
+
+#head_text {
+	text-align: center;
+	font-family: "Microsoft yahei";
+	font-size: 45px;
+	color: white;
+}
+
+#window {
+	height: 430px;
+	width: 520px;
+	margin: 0 auto;
+	border: solid 1px palegoldenrod;
+	background-color: white;
+	border: solid 1px palegoldenrod;
+}
+
+#w_img {
+	margin-left: 140px;
+	margin-top: 20px;
+	width: 250px;
+	height: 101px;
+	background: url("../image/logo.png") no-repeat;
+}
+
+#w_iphone {
+	height: 50px;
+	width: 400px;
+	margin-left: 60px;
+	margin-top: 20px;
+	border: solid 1px #4169E1;
+}
+
+#iphone_img {
+	float: left;
+	height: 23px;
+	width: 20px;
+	margin-top: 15px;
+	margin-left: 10px;
+	background: url("../image/sprite_user.png") no-repeat -110px 0px;
+}
+
+#iphone {
+	margin-left: 7px;
+	margin-top: 1px;
+	font-size: 17px;
+	color: #aaaaaa;
+	font-family: "Microsoft yahei";
+	border: hidden;
+	width: 362px;
+	height: 46px;
+	background-color: white;
+	padding: 0;
+}
+
+#check_iphone {
+	height: 40px;
+	font-family: "Microsoft yahei";
+	font-size: 15px;
+	color: red;
+	margin-left: 60px;
+	line-height: 40px;
+}
+
+#w_password {
+	height: 50px;
+	width: 400px;
+	margin-left: 60px;
+	border: solid 1px #4169E1;
+}
+
+#password_img {
+	float: left;
+	height: 23px;
+	width: 20px;
+	margin-top: 15px;
+	margin-left: 10px;
+	background: url("../image/sprite_user.png") no-repeat -110px -25px;
+}
+
+#password {
+	margin-left: 7px;
+	margin-top: 1px;
+	font-family: "Microsoft yahei";
+	font-size: 17px;
+	color: #aaaaaa;
+	border: hidden;
+	width: 362px;
+	height: 46px;
+	background-color: white;
+	padding: 0;
+}
+
+#remember_pass {
+	margin-top: 20px;
+	font-family: "Microsoft yahei";
+	font-size: 13px;
+}
+
+#remember_pass input {
+	margin-left: 60px;
+}
+
+#remember_pass span {
+	float: right;
+	margin-right: 60px;
+}
+
+#login {
+	margin-top: 20px;
+}
+
+#login #submit {
+	margin-left: 60px;
+	width: 400px;
+	height: 45px;
+	color: white;
+	font-size: larger;
+	background-color: #0F3381;
+	font-family: "Microsoft yahei";
+	border: none;
+}
+
+#last {
+	margin-top: 10px;
+	height: 50px;
+	color: #fff;
+	font-family: "Microsoft yahei";
+	font-size: 10px;
+}
+
+#last div {
+	text-align: center;
+}
