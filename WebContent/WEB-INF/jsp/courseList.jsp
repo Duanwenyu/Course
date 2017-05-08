@@ -238,7 +238,6 @@
 			draggable:false,
 			maximizable:true,
 			resizable:true,
-// 	 		fit:true,
 			modal:true,
 			buttons:[{
 				text:'返回',
