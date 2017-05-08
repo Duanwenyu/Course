@@ -11,13 +11,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.course.entity.Coursemess;
+import com.course.entity.Manager;
 import com.course.entity.Studentmess;
 import com.course.entity.Sysmess;
 import com.course.entity.Teachermess;
 import com.course.service.CourseService;
 import com.course.service.LoginService;
+import com.course.service.ManagerService;
 import com.course.service.SysService;
 import com.course.service.TeacherService;
 
@@ -35,6 +38,9 @@ public class LoginController {
 
 	@Autowired
 	private TeacherService teacherService;
+
+	@Autowired
+	private ManagerService managerService;
 
 	@RequestMapping("logins")
 	public String checkStudent(Studentmess studentmess, HttpSession session, Model model) {
@@ -63,11 +69,24 @@ public class LoginController {
 		}
 	}
 
+	@RequestMapping(value = "manager-login", method = RequestMethod.POST)
+	public String managerLogin(Manager manager, RedirectAttributes model, HttpSession session) {
+		manager = managerService.login(manager);
+		if (null == manager) {
+			model.addFlashAttribute("error", "账号或密码错误");
+			return "redirect:/manager-login";
+		}
+		session.setAttribute("manager", manager);
+		return "redirect:/back-manage";
+
+	}
+
 	@RequestMapping("exits")
 	@ResponseBody
 	public String exits(HttpSession session) {
 		session.removeAttribute("stu");
 		session.removeAttribute("teacher");
+		session.removeAttribute("manager");
 		return "success";
 	}
 

@@ -168,6 +168,8 @@
 						$('#dg').datagrid('reload');
 						$('#dg').datagrid('clearSelections');
 						$.messager.alert('Success', '选课成功！');
+					} else if (data === "not start") {
+						$.messager.alert('WARN', '选课未开始！');
 					} else {
 						$.messager.alert('Error', '选课失败！每人限选课程数为:' + data);
 					}
@@ -349,7 +351,6 @@
 				draggable : false,
 				maximizable : true,
 				resizable : true,
-				modal : true,
 				buttons : [ {
 					text : '确定',
 					iconCls : 'icon-ok',
@@ -363,7 +364,7 @@
 						$('#ff').dialog('close');
 						$('#dg').datagrid('reload');
 					}
-				} ],
+				} ]
 			});
 		}
 	</script>

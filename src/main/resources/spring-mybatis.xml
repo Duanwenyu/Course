@@ -2,9 +2,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-    xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans  
                         http://www.springframework.org/schema/beans/spring-beans.xsd  
                         http://www.springframework.org/schema/context  
@@ -18,8 +17,7 @@
 
 	<!-- 自动扫描 -->
 	<!--< context:component-scan base-package="com.cn.hnust" /> -->
-	<context:component-scan base-package="com.course.dao"></context:component-scan>
-	<context:component-scan base-package="com.course.service"></context:component-scan>
+	<context:component-scan base-package="com.course.service;com.course.timer"></context:component-scan>
 	<!-- <context:property-placeholder location="classpath:config.properties" 
 		/> -->
 	<!-- 引入配置文件 -->
@@ -27,13 +25,14 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location" value="classpath:mybatis.properties" />
 	</bean>
-	
+
 	<!-- 对multipart解析器的配置 -->
-   <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-      <property name="maxUploadSize" value="104857600"/>
-        <property name="maxInMemorySize" value="4096"/>
-   </bean>
-   
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="104857600" />
+		<property name="maxInMemorySize" value="4096" />
+	</bean>
+
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="${jdbc.driver}" />
@@ -57,15 +56,15 @@
 		<property name="dataSource" ref="dataSource" />
 		<!-- 自动扫描mapping.xml文件 -->
 		<property name="mapperLocations" value="classpath:com/course/dao/*.xml" />
-		<!--  -->
+		<!-- -->
 		<property name="typeAliasesPackage" value="com.course.entity" />
 	</bean>
 
 	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
- 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.course.dao" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
-	</bean> 
+	</bean>
 
 	<!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
 	<bean id="transactionManager"
@@ -73,8 +72,9 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	<!-- 使用annotation定义事务 -->
-    <tx:annotation-driven transaction-manager="defaultTransactionManager" proxy-target-class="true" />
-    
+	<tx:annotation-driven transaction-manager="defaultTransactionManager"
+		proxy-target-class="true" />
+
 	<tx:advice id="userTxAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="delete*" propagation="REQUIRED" read-only="false"
@@ -91,11 +91,12 @@
 	</tx:advice>
 
 	<aop:config>
-		<aop:pointcut id="pc" expression="execution(public * com.course.service.*.*(..))" />
+		<aop:pointcut id="pc"
+			expression="execution(public * com.course.service.*.*(..))" />
 		<aop:advisor pointcut-ref="pc" advice-ref="userTxAdvice" />
 	</aop:config>
-	
+
 	<mvc:annotation-driven />
-	
+
 
 </beans>

@@ -17,40 +17,46 @@ import com.course.entity.Studentmess;
 import com.course.entity.Sysmess;
 import com.course.service.ChooseService;
 import com.course.service.CourseService;
+import com.course.timer.ChooseCourseTimer;
 
 @Controller
 public class CourseController {
 	@Autowired
 	CourseService courseService;
-	
+
 	@Autowired
 	ChooseService chooseService;
-	
-	//Ñ¡¿Î²Ëµ¥ÁÐ±í
+
+	@Autowired
+	private ChooseCourseTimer timer;
+
+	// Ñ¡ï¿½Î²Ëµï¿½ï¿½Ð±ï¿½
 	@RequestMapping("course/showList")
 	@ResponseBody
-	public Map<String,Object> showList(int page, int rows, HttpSession session){
+	public Map<String, Object> showList(int page, int rows, HttpSession session) {
 		Studentmess studentmess = (Studentmess) session.getAttribute("stu");
-		RowBounds rowBounds  = new RowBounds((page-1)*rows, rows);
-		List<Coursemess> list = courseService.selectAll(studentmess,rowBounds);
+		RowBounds rowBounds = new RowBounds((page - 1) * rows, rows);
+		List<Coursemess> list = courseService.selectAll(studentmess, rowBounds);
 		int total = courseService.selectAllNum(studentmess);
-		Map<String,Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("total", total);
 		map.put("rows", list);
 		return map;
 	}
-	
-	//±£´æÑ¡¿ÎÐÅÏ¢
+
+	// ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½Ï¢
 	@RequestMapping("course/insertChooseMess")
 	@Transactional
 	@ResponseBody
-	public String insertChooseMess(Choosemess choosemess , HttpSession session){
+	public String insertChooseMess(Choosemess choosemess, HttpSession session) {
+		if (!timer.getChooseState())
+			return "not start";
 		Sysmess sysmess = (Sysmess) session.getAttribute("sys");
 		Studentmess student = (Studentmess) session.getAttribute("stu");
 		choosemess.setStuNo(student.getStuNo());
 		int courseNo = sysmess.getSysChoosenum();
 		int CourseNoStu = chooseService.selectCourseNoByStuNo(choosemess);
-		if(CourseNoStu < courseNo){
+		if (CourseNoStu < courseNo) {
 			Studentmess studentmess = (Studentmess) session.getAttribute("stu");
 			Choosemess c = new Choosemess();
 			c.setStuNo(studentmess.getStuNo());
@@ -66,29 +72,29 @@ public class CourseController {
 			chooseService.insertChooseMess(c);
 			Coursemess coursemess = new Coursemess();
 			coursemess.setCourseNo(choosemess.getCourseNo());
-			coursemess.setCourseNumber(choosemess.getCourseNumber()-1);
+			coursemess.setCourseNumber(choosemess.getCourseNumber() - 1);
 			courseService.updateByPrimaryKey(coursemess);
 			return "success";
-		}else{
+		} else {
 			return "" + courseNo;
 		}
 	}
-	
-	//²éÑ¯ÒÑÑ¡¿Î³ÌÐÅÏ¢
+
+	// ï¿½ï¿½Ñ¯ï¿½ï¿½Ñ¡ï¿½Î³ï¿½ï¿½ï¿½Ï¢
 	@RequestMapping("course/showChoosedList")
 	@ResponseBody
-	public List<Coursemess> selectChoosed(Choosemess choosemess , HttpSession session){
+	public List<Coursemess> selectChoosed(Choosemess choosemess, HttpSession session) {
 		Studentmess studentmess = (Studentmess) session.getAttribute("stu");
 		List<Coursemess> list = new ArrayList<Coursemess>();
 		list = courseService.selectChoosed(studentmess);
 		return list;
 	}
 
-	//ÍË¿Î
+	// ï¿½Ë¿ï¿½
 	@RequestMapping("course/deleteChooseMess")
 	@Transactional
 	@ResponseBody
-	public String deleteChooseMess(Choosemess choosemess , HttpSession session){
+	public String deleteChooseMess(Choosemess choosemess, HttpSession session) {
 		Studentmess studentmess = (Studentmess) session.getAttribute("stu");
 		Choosemess c = new Choosemess();
 		c.setCourseNo(choosemess.getCourseNo());
@@ -100,14 +106,13 @@ public class CourseController {
 		courseService.updateByPrimaryKey(coursemess);
 		return "success";
 	}
-	
-	
+
 	@RequestMapping("course/selectForTeacher")
 	@ResponseBody
-	public List<Coursemess> selectForTeacher(HttpSession session){
+	public List<Coursemess> selectForTeacher(HttpSession session) {
 		List<Coursemess> list = new ArrayList<Coursemess>();
 		list = courseService.selectForTeacher();
 		return list;
 	}
-	
+
 }

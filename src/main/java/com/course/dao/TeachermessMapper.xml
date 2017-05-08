@@ -1,111 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.course.dao.TeachermessMapper">
-  <resultMap id="BaseResultMap" type="com.course.entity.Teachermess">
-    <id column="TECH_NO" jdbcType="VARCHAR" property="techNo" />
-    <result column="TECH_MAJOR" jdbcType="VARCHAR" property="techMajor" />
-    <result column="TECH_NAME" jdbcType="VARCHAR" property="techName" />
-    <result column="TECH_SEX" jdbcType="VARCHAR" property="techSex" />
-    <result column="TECH_TITLE" jdbcType="VARCHAR" property="techTitle" />
-    <result column="TECH_PASSWORD" jdbcType="VARCHAR" property="techPassword" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    TECH_NO, TECH_MAJOR, TECH_NAME, TECH_SEX, TECH_TITLE, TECH_PASSWORD
-  </sql>
-  <select id="checkTeacher" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select * from TEACHERMESS 
-    where TECH_NO = #{techNo,jdbcType=VARCHAR}
-    and TECH_PASSWORD = #{techPassword,jdbcType=VARCHAR}
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from TEACHERMESS
-    where TECH_NO = #{techNo,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from TEACHERMESS
-    where TECH_NO = #{techNo,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="com.course.entity.Teachermess">
-    insert into TEACHERMESS (TECH_NO, TECH_MAJOR, TECH_NAME, 
-      TECH_SEX, TECH_TITLE, TECH_PASSWORD
-      )
-    values (#{techNo,jdbcType=VARCHAR}, #{techMajor,jdbcType=VARCHAR}, #{techName,jdbcType=VARCHAR}, 
-      #{techSex,jdbcType=VARCHAR}, #{techTitle,jdbcType=VARCHAR}, #{techPassword,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.course.entity.Teachermess">
-    insert into TEACHERMESS
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="techNo != null">
-        TECH_NO,
-      </if>
-      <if test="techMajor != null">
-        TECH_MAJOR,
-      </if>
-      <if test="techName != null">
-        TECH_NAME,
-      </if>
-      <if test="techSex != null">
-        TECH_SEX,
-      </if>
-      <if test="techTitle != null">
-        TECH_TITLE,
-      </if>
-      <if test="techPassword != null">
-        TECH_PASSWORD,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="techNo != null">
-        #{techNo,jdbcType=VARCHAR},
-      </if>
-      <if test="techMajor != null">
-        #{techMajor,jdbcType=VARCHAR},
-      </if>
-      <if test="techName != null">
-        #{techName,jdbcType=VARCHAR},
-      </if>
-      <if test="techSex != null">
-        #{techSex,jdbcType=VARCHAR},
-      </if>
-      <if test="techTitle != null">
-        #{techTitle,jdbcType=VARCHAR},
-      </if>
-      <if test="techPassword != null">
-        #{techPassword,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.course.entity.Teachermess">
-    update TEACHERMESS
-    <set>
-      <if test="techMajor != null">
-        TECH_MAJOR = #{techMajor,jdbcType=VARCHAR},
-      </if>
-      <if test="techName != null">
-        TECH_NAME = #{techName,jdbcType=VARCHAR},
-      </if>
-      <if test="techSex != null">
-        TECH_SEX = #{techSex,jdbcType=VARCHAR},
-      </if>
-      <if test="techTitle != null">
-        TECH_TITLE = #{techTitle,jdbcType=VARCHAR},
-      </if>
-      <if test="techPassword != null">
-        TECH_PASSWORD = #{techPassword,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where TECH_NO = #{techNo,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.course.entity.Teachermess">
-    update TEACHERMESS
-    set TECH_MAJOR = #{techMajor,jdbcType=VARCHAR},
-      TECH_NAME = #{techName,jdbcType=VARCHAR},
-      TECH_SEX = #{techSex,jdbcType=VARCHAR},
-      TECH_TITLE = #{techTitle,jdbcType=VARCHAR},
-      TECH_PASSWORD = #{techPassword,jdbcType=VARCHAR}
-    where TECH_NO = #{techNo,jdbcType=VARCHAR}
-  </update>
+	<resultMap id="BaseResultMap" type="com.course.entity.Teachermess">
+		<id column="TECH_NO" jdbcType="VARCHAR" property="techNo" />
+		<result column="TECH_MAJOR" jdbcType="VARCHAR" property="techMajor" />
+		<result column="TECH_NAME" jdbcType="VARCHAR" property="techName" />
+		<result column="TECH_SEX" jdbcType="VARCHAR" property="techSex" />
+		<result column="TECH_TITLE" jdbcType="VARCHAR" property="techTitle" />
+		<result column="TECH_PASSWORD" jdbcType="VARCHAR" property="techPassword" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		TECH_NO, TECH_MAJOR, TECH_NAME, TECH_SEX, TECH_TITLE,
+		TECH_PASSWORD
+	</sql>
+	<select id="checkTeacher" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select * from TEACHERMESS
+		where TECH_NO =
+		#{techNo,jdbcType=VARCHAR}
+		and TECH_PASSWORD =
+		#{techPassword,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from TEACHERMESS
+		where TECH_NO = #{techNo,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByRowBounds" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from TEACHERMESS
+	</select>
+	<select id="selectCount" resultType="int">
+		select count(*) from
+		TEACHERMESS
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		TEACHERMESS
+		where TECH_NO = #{techNo,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.course.entity.Teachermess">
+		insert into TEACHERMESS
+		(TECH_NO, TECH_MAJOR, TECH_NAME,
+		TECH_SEX, TECH_TITLE, TECH_PASSWORD
+		)
+		values (#{techNo,jdbcType=VARCHAR}, #{techMajor,jdbcType=VARCHAR},
+		#{techName,jdbcType=VARCHAR},
+		#{techSex,jdbcType=VARCHAR},
+		#{techTitle,jdbcType=VARCHAR}, #{techPassword,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.course.entity.Teachermess">
+		insert into TEACHERMESS
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="techNo != null">
+				TECH_NO,
+			</if>
+			<if test="techMajor != null">
+				TECH_MAJOR,
+			</if>
+			<if test="techName != null">
+				TECH_NAME,
+			</if>
+			<if test="techSex != null">
+				TECH_SEX,
+			</if>
+			<if test="techTitle != null">
+				TECH_TITLE,
+			</if>
+			<if test="techPassword != null">
+				TECH_PASSWORD,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="techNo != null">
+				#{techNo,jdbcType=VARCHAR},
+			</if>
+			<if test="techMajor != null">
+				#{techMajor,jdbcType=VARCHAR},
+			</if>
+			<if test="techName != null">
+				#{techName,jdbcType=VARCHAR},
+			</if>
+			<if test="techSex != null">
+				#{techSex,jdbcType=VARCHAR},
+			</if>
+			<if test="techTitle != null">
+				#{techTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="techPassword != null">
+				#{techPassword,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.course.entity.Teachermess">
+		update TEACHERMESS
+		<set>
+			<if test="techMajor != null">
+				TECH_MAJOR = #{techMajor,jdbcType=VARCHAR},
+			</if>
+			<if test="techName != null">
+				TECH_NAME = #{techName,jdbcType=VARCHAR},
+			</if>
+			<if test="techSex != null">
+				TECH_SEX = #{techSex,jdbcType=VARCHAR},
+			</if>
+			<if test="techTitle != null">
+				TECH_TITLE = #{techTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="techPassword != null">
+				TECH_PASSWORD = #{techPassword,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where TECH_NO = #{techNo,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.course.entity.Teachermess">
+		update TEACHERMESS
+		set TECH_MAJOR = #{techMajor,jdbcType=VARCHAR},
+		TECH_NAME =
+		#{techName,jdbcType=VARCHAR},
+		TECH_SEX = #{techSex,jdbcType=VARCHAR},
+		TECH_TITLE = #{techTitle,jdbcType=VARCHAR},
+		TECH_PASSWORD =
+		#{techPassword,jdbcType=VARCHAR}
+		where TECH_NO =
+		#{techNo,jdbcType=VARCHAR}
+	</update>
 </mapper>

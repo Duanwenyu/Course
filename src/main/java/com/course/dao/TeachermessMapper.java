@@ -1,19 +1,28 @@
 package com.course.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.session.RowBounds;
+
 import com.course.entity.Teachermess;
+
 public interface TeachermessMapper {
-	//µÇÂ¼
+	// ï¿½ï¿½Â¼
 	Teachermess checkTeacher(Teachermess teachermess);
-	
-    int deleteByPrimaryKey(String techNo);
 
-    int insert(Teachermess record);
+	int deleteByPrimaryKey(String techNo);
 
-    int insertSelective(Teachermess record);
+	int insert(Teachermess record);
 
-    Teachermess selectByPrimaryKey(String techNo);
+	int insertSelective(Teachermess record);
 
-    int updateByPrimaryKeySelective(Teachermess record);
+	Teachermess selectByPrimaryKey(String techNo);
 
-    int updateByPrimaryKey(Teachermess record);
+	int updateByPrimaryKeySelective(Teachermess record);
+
+	int updateByPrimaryKey(Teachermess record);
+
+	List<Teachermess> selectByRowBounds(RowBounds rowBounds);
+
+	int selectCount();
 }
