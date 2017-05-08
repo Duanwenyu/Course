@@ -19,4 +19,9 @@ public class StudentServiceImpl implements StudentService {
 		return studentmessMapper.selectByStuno2(stuNo);
 	}
 
+	@Override
+	public boolean update(Studentmess studentmess) {
+		return 0 != studentmessMapper.updateByPrimaryKeySelective(studentmess);
+	}
+
 }

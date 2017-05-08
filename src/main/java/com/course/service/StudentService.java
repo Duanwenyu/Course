@@ -6,5 +6,6 @@ public interface StudentService {
 	
 	public  Studentmess selectByStuno(Studentmess studentmess);
 	public  Studentmess selectByStuno2(String stuNo);
+	boolean update(Studentmess studentmess);
 
 }
