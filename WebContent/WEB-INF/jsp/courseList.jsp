@@ -232,6 +232,7 @@
 			closed: false,
 			cache: false,
 			inline:true,
+			href:'showStuMess',
 			modal: true,
 			collapsible:true,
 			draggable:false,
